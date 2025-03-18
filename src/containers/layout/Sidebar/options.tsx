@@ -17,7 +17,7 @@ import {
   MdProductionQuantityLimits,
 } from "react-icons/md";
 import { getPermissions } from "utlis/library/helpers/permissions";
-import { FaFileImport, FaQuestion, FaQuestionCircle, FaShieldAlt, FaShoppingBag, FaUsers } from "react-icons/fa";
+import { FaFileImport, FaQuestion, FaQuestionCircle, FaShieldAlt, FaCog, FaUsers } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { FaAllergies } from "react-icons/fa";
 import { GiButterflyKnife } from "react-icons/gi";
@@ -45,6 +45,14 @@ const getMenuItems: (profile) => MenuItem[] = (profile) => {
       to: "users",
       label: <FormattedMessage id="users" />,
       icon: <FaUsers className="!text-xl" />,
+      disabled: false,
+      hidden: false,
+    },
+    {
+      key: "settings",
+      to: "settings",
+      label: <FormattedMessage id="settings" />,
+      icon: <FaCog className="!text-xl" />,
       disabled: false,
       hidden: false,
     },
