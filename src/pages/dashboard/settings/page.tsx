@@ -5,7 +5,13 @@ import { Button, Col, DatePicker, Form, Input, Popconfirm, Progress, Row, Select
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { DeleteOutlined, FileDoneOutlined, QuestionCircleOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  FileDoneOutlined,
+  InfoCircleOutlined,
+  QuestionCircleOutlined,
+  UploadOutlined,
+} from "@ant-design/icons";
 import { useForm } from "antd/es/form/Form";
 import middleware from "utlis/navigation/mw";
 import PermissionGuard from "middlewares/Permissions";
@@ -13,7 +19,9 @@ import { getPermissions } from "utlis/library/helpers/permissions";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
-
+import { EditorState } from "draft-js";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import RichTextEditor from "components/rich-text-input/RichTextEditor";
 const { Option } = Select;
 
 function Edit() {
@@ -23,14 +31,34 @@ function Edit() {
   const profile = useSelector(({ profile }) => profile.data);
 
   const { idToken } = useSelector((state: any) => state.Auth);
-  const { locale } = useSelector(({ LanguageSwitcher }: { LanguageSwitcher: ILanguageSwitcher }) => LanguageSwitcher.language);
+  const { locale } = useSelector(
+    ({ LanguageSwitcher }: { LanguageSwitcher: ILanguageSwitcher }) =>
+      LanguageSwitcher.language
+  );
   const [form] = useForm();
   const navigate = useNavigate();
   const [isSubmiting, setIsSubmiting] = useState(false);
   const [isDeleteing, setIsDeleteing] = useState(false);
+  const [aboutUsAr, setAboutUsAr] = useState(EditorState.createEmpty());
+  const [aboutUsEn, setAboutUsEn] = useState(EditorState.createEmpty());
+  const [privacyPolicyAr, setPrivacyPolicyAr] = useState(
+    EditorState.createEmpty()
+  );
+  const [privacyPolicyEn, setPrivacyPolicyEn] = useState(
+    EditorState.createEmpty()
+  );
+
+  const [termsAr, setTermsAr] = useState(EditorState.createEmpty());
+  const [termsEn, setTermsEn] = useState(EditorState.createEmpty());
   const queryClient = useQueryClient();
 
   const handleSubmit = (values) => {
+    values.about_us_ar = aboutUsAr
+    values.about_us_en = aboutUsEn
+    values.privacy_policy_ar = privacyPolicyAr
+    values.privacy_policy_en = privacyPolicyEn
+    values.terms_ar = termsAr
+    values.terms_en = termsEn
     values._method = "put";
     setIsSubmiting(true);
     toast.promise(
@@ -41,7 +69,11 @@ function Edit() {
         },
       }),
       {
-        loading: <div className="min-w-[200px]">{locale === "ar" ? "جاري المعالجة " : "Pending"}</div>,
+        loading: (
+          <div className="min-w-[200px]">
+            {locale === "ar" ? "جاري المعالجة " : "Pending"}
+          </div>
+        ),
         success: (res: any) => {
           const { message } = res.data;
           queryClient.invalidateQueries({ queryKey: ["settings", idToken] });
@@ -56,24 +88,6 @@ function Edit() {
       }
     );
   };
-
-  // useEffect(() => {
-  //   setLoadingFormRequireData(true);
-  //   axios
-  //     .get(`countries`, {
-  //       headers: {
-  //         "X-Portal": "dashboard",
-  //         Authorization: `Bearer ${idToken}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       setCountries(res.data.data);
-  //       setLoadingFormRequireData(false);
-  //     })
-  //     .catch(() => {
-  //       setLoadingFormRequireData(false);
-  //     });
-  // }, [idToken]);
 
   const {
     isFetching,
@@ -102,7 +116,12 @@ function Edit() {
       <Spin spinning={isFetching}>
         <Row>
           <Col span={24}>
-            <Form form={form} onFinish={handleSubmit} layout="vertical" className="login-form">
+            <Form
+              form={form}
+              onFinish={handleSubmit}
+              layout="vertical"
+              className="login-form"
+            >
               <Form.Item
                 label={<FormattedMessage id="email" />}
                 name="email"
@@ -179,74 +198,188 @@ function Edit() {
               <Form.Item
                 label={<FormattedMessage id="about_us_ar" />}
                 name="about_us_ar"
+                tooltip={{
+                  title: (
+                    <FormattedMessage id="please-press-enter-after-line" />
+                  ),
+                  icon: <InfoCircleOutlined />,
+                }}
                 rules={[
                   {
                     required: true,
                     message: <FormattedMessage id="about_us_ar" />,
                   },
+                  {
+                    validator: (_, value) => {
+                      const strippedValue = value
+                        .replace(/<[^>]+>/g, "")
+                        .trim();
+                      return strippedValue
+                        ? Promise.resolve()
+                        : Promise.reject(<FormattedMessage id="required" />);
+                    },
+                  },
                 ]}
               >
-                <ReactQuill className={locale === "ar" ? "ar" : ""} theme="snow" />
+                <RichTextEditor
+                  value={isSuccess ?? show.data?.data?.about_us_ar}
+                  onChange={setAboutUsAr}
+                />
               </Form.Item>
               <Form.Item
                 label={<FormattedMessage id="about_us_en" />}
                 name="about_us_en"
+                tooltip={{
+                  title: (
+                    <FormattedMessage id="please-press-enter-after-line" />
+                  ),
+                  icon: <InfoCircleOutlined />,
+                }}
                 rules={[
                   {
                     required: true,
                     message: <FormattedMessage id="about_us_en" />,
                   },
+                  {
+                    validator: (_, value) => {
+                      const strippedValue = value
+                        .replace(/<[^>]+>/g, "")
+                        .trim();
+                      return strippedValue
+                        ? Promise.resolve()
+                        : Promise.reject(<FormattedMessage id="required" />);
+                    },
+                  },
                 ]}
               >
-                <ReactQuill className={locale === "ar" ? "ar" : ""} theme="snow" />
+                <RichTextEditor
+                  value={isSuccess ?? show.data?.data?.about_us_en}
+                  onChange={setAboutUsEn}
+                />
               </Form.Item>
               <Form.Item
                 label={<FormattedMessage id="privacy_policy_ar" />}
                 name="privacy_policy_ar"
+                tooltip={{
+                  title: (
+                    <FormattedMessage id="please-press-enter-after-line" />
+                  ),
+                  icon: <InfoCircleOutlined />,
+                }}
                 rules={[
                   {
                     required: true,
                     message: <FormattedMessage id="privacy_policy_ar" />,
                   },
+                  {
+                    validator: (_, value) => {
+                      const strippedValue = value
+                        .replace(/<[^>]+>/g, "")
+                        .trim();
+                      return strippedValue
+                        ? Promise.resolve()
+                        : Promise.reject(<FormattedMessage id="required" />);
+                    },
+                  },
                 ]}
               >
-                <ReactQuill className={locale === "ar" ? "ar" : ""} theme="snow" />
+                <RichTextEditor
+                  value={isSuccess ?? show.data?.data?.privacy_policy_ar}
+                  onChange={setPrivacyPolicyAr}
+                />
               </Form.Item>
               <Form.Item
                 label={<FormattedMessage id="privacy_policy_en" />}
                 name="privacy_policy_en"
+                tooltip={{
+                  title: (
+                    <FormattedMessage id="please-press-enter-after-line" />
+                  ),
+                  icon: <InfoCircleOutlined />,
+                }}
                 rules={[
                   {
                     required: true,
                     message: <FormattedMessage id="privacy_policy_en" />,
                   },
+                  {
+                    validator: (_, value) => {
+                      const strippedValue = value
+                        .replace(/<[^>]+>/g, "")
+                        .trim();
+                      return strippedValue
+                        ? Promise.resolve()
+                        : Promise.reject(<FormattedMessage id="required" />);
+                    },
+                  },
                 ]}
               >
-                <ReactQuill className={locale === "ar" ? "ar" : ""} theme="snow" />
+                <RichTextEditor
+                  value={isSuccess ?? show.data?.data?.privacy_policy_en}
+                  onChange={setPrivacyPolicyEn}
+                />
               </Form.Item>
               <Form.Item
                 label={<FormattedMessage id="terms_ar" />}
                 name="terms_ar"
+                tooltip={{
+                  title: (
+                    <FormattedMessage id="please-press-enter-after-line" />
+                  ),
+                  icon: <InfoCircleOutlined />,
+                }}
                 rules={[
                   {
                     required: true,
                     message: <FormattedMessage id="terms_ar" />,
                   },
+                  {
+                    validator: (_, value) => {
+                      const strippedValue = value
+                        .replace(/<[^>]+>/g, "")
+                        .trim();
+                      return strippedValue
+                        ? Promise.resolve()
+                        : Promise.reject(<FormattedMessage id="required" />);
+                    },
+                  },
                 ]}
               >
-                <ReactQuill className={locale === "ar" ? "ar" : ""} theme="snow" />
+                <RichTextEditor
+                  value={isSuccess ?? show.data?.data?.terms_ar}
+                  onChange={setTermsAr}
+                />
               </Form.Item>
               <Form.Item
                 label={<FormattedMessage id="terms_en" />}
                 name="terms_en"
+                tooltip={{
+                  title: (
+                    <FormattedMessage id="please-press-enter-after-line" />
+                  ),
+                  icon: <InfoCircleOutlined />,
+                }}
                 rules={[
                   {
                     required: true,
                     message: <FormattedMessage id="terms_en" />,
                   },
+                  {
+                    validator: (_, value) => {
+                      const strippedValue = value
+                        .replace(/<[^>]+>/g, "")
+                        .trim();
+                      return strippedValue
+                        ? Promise.resolve()
+                        : Promise.reject(<FormattedMessage id="required" />);
+                    },
+                  },
                 ]}
               >
-                <ReactQuill className={locale === "ar" ? "ar" : ""} theme="snow" />
+                <RichTextEditor
+                  value={isSuccess ?? show.data?.data?.terms_en}
+                  onChange={setTermsEn}
+                />
               </Form.Item>
 
               <div className="flex gap-4 flex-wrap mt-8">

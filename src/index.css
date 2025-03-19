@@ -194,3 +194,33 @@ html[dir='rtl'] .react-international-phone-country-selector-button__dropdown-arr
 .ant-upload-drag{
   margin-bottom: .5rem;
 }
+
+/* draft js & RDW css overright */
+.wrapper-class-name{
+  border : 1px solid #ccc
+}
+
+[dir="rtl"]{.rdw-dropdown-selectedtext {
+  flex-direction: row-reverse;
+ }}
+ .toolbar-class-name{
+  justify-content: center !important;
+
+ }
+ .dark .wrapper-class-name {
+  background-color: inherit;
+  border: white 1px solid
+}
+
+.dark .toolbar-class-name {
+  background-color: inherit;
+  border: none !important;
+  border-bottom: 1px solid white !important;
+
+}
+.dark .rdw-dropdownoption-default {
+  color: black;
+}
+.dark .editor-class-name {
+  background-color: #14141400;
+}

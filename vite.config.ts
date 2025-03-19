@@ -4,19 +4,22 @@ import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    global: "window",
+  },
   plugins: [react()],
-  server:{port:8000},
+  server: { port: 8000 },
   resolve: {
-        alias: {
-          'utlis': resolve(__dirname, 'src') + '/utlis',
-          'store': resolve(__dirname, 'src') + '/store',
-          'routers': resolve(__dirname, 'src') + '/routers',
-          'components': resolve(__dirname, 'src') + '/components',
-          'middlewares': resolve(__dirname, 'src') + '/middlewares',
-          'containers': resolve(__dirname, 'src') + '/containers',
-          'assets': resolve(__dirname, 'src') + '/assets',
-          'loggers': resolve(__dirname, 'src') + '/loggers',
-          'lottiefiles': resolve(__dirname, 'src') + '/lottiefiles',
-        },
-                },
-})
+    alias: {
+      utlis: resolve(__dirname, "src") + "/utlis",
+      store: resolve(__dirname, "src") + "/store",
+      routers: resolve(__dirname, "src") + "/routers",
+      components: resolve(__dirname, "src") + "/components",
+      middlewares: resolve(__dirname, "src") + "/middlewares",
+      containers: resolve(__dirname, "src") + "/containers",
+      assets: resolve(__dirname, "src") + "/assets",
+      loggers: resolve(__dirname, "src") + "/loggers",
+      lottiefiles: resolve(__dirname, "src") + "/lottiefiles",
+    },
+  },
+});
