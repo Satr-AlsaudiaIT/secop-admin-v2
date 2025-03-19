@@ -56,6 +56,14 @@ const getMenuItems: (profile) => MenuItem[] = (profile) => {
       disabled: false,
       hidden: false,
     },
+    {
+      key: "faqs",
+      to: "faqs",
+      label: <FormattedMessage id="faqs" />,
+      icon: <FaCog className="!text-xl" />,
+      disabled: false,
+      hidden: false,
+    },
 
     // {
     //   key: "offers-group",

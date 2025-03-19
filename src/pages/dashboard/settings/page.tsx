@@ -128,7 +128,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: <FormattedMessage id="email" />,
+                    message: <FormattedMessage id="required" />,
                   },
                 ]}
               >
@@ -140,7 +140,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: <FormattedMessage id="phone" />,
+                    message: <FormattedMessage id="required" />,
                   },
                 ]}
               >
@@ -152,7 +152,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: "Facebook",
+                    message: <FormattedMessage id="required" />,
                   },
                 ]}
               >
@@ -164,7 +164,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: "Instagram",
+                    message: <FormattedMessage id="required" />,
                   },
                 ]}
               >
@@ -176,7 +176,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: "Twitter",
+                    message: <FormattedMessage id="required" />,
                   },
                 ]}
               >
@@ -188,7 +188,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: "Snapchat",
+                    message: <FormattedMessage id="required" />,
                   },
                 ]}
               >
@@ -207,7 +207,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: <FormattedMessage id="about_us_ar" />,
+                    message: <FormattedMessage id="required" />,
                   },
                   {
                     validator: (_, value) => {
@@ -238,7 +238,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: <FormattedMessage id="about_us_en" />,
+                    message: <FormattedMessage id="required" />,
                   },
                   {
                     validator: (_, value) => {
@@ -269,7 +269,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: <FormattedMessage id="privacy_policy_ar" />,
+                    message: <FormattedMessage id="required" />,
                   },
                   {
                     validator: (_, value) => {
@@ -300,7 +300,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: <FormattedMessage id="privacy_policy_en" />,
+                    message: <FormattedMessage id="required" />,
                   },
                   {
                     validator: (_, value) => {
@@ -331,7 +331,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: <FormattedMessage id="terms_ar" />,
+                    message: <FormattedMessage id="required" />,
                   },
                   {
                     validator: (_, value) => {
@@ -362,7 +362,7 @@ function Edit() {
                 rules={[
                   {
                     required: true,
-                    message: <FormattedMessage id="terms_en" />,
+                    message: <FormattedMessage id="required" />,
                   },
                   {
                     validator: (_, value) => {

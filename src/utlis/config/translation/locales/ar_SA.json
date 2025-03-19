@@ -51,7 +51,7 @@
   "page.signUpButton": "اشتراك",
   "page.signUpFacebook": "اشترك عبر حساب فايسبوك",
   "page.signUpAlreadyAccount": "هل لديك حساب؟ تسجيل الدخول.",
-  "required": "مطلوب",
+  "required": "حقل مطلوب",
   "unrequired": "غير مطلوب",
   "logout": "تسجيل خروج",
   "statistics": "الاحصائيات",
