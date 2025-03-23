@@ -16,7 +16,11 @@ const SearchFilterCard = ({ setUrl }) => {
     for (let i of keys) {
       if (values[i] === undefined) delete values[i];
     }
-    const query = new URLSearchParams(values).toString();
+    const transformedValues = {};
+    for (let key in values) {
+      transformedValues[`filter[${key}]`] = values[key];
+    }
+    const query = new URLSearchParams(transformedValues).toString();
     setUrl(`users?${query}`);
   };
 

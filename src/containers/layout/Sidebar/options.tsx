@@ -60,7 +60,7 @@ const getMenuItems: (profile) => MenuItem[] = (profile) => {
       key: "faqs",
       to: "faqs",
       label: <FormattedMessage id="faqs" />,
-      icon: <FaCog className="!text-xl" />,
+      icon: <FaQuestion className="!text-xl" />,
       disabled: false,
       hidden: false,
     },

@@ -148,6 +148,7 @@
   "confirm": "Confirm",
   "confirmPayment": "Confirm Payment",
   "rejected": "Rejected",
+  "invited": "Invited",
   "complete": "Complete",
   "client_name": "Client Name",
   "client_phone": "Client Phone",

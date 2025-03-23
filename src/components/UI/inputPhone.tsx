@@ -53,7 +53,7 @@ export default function PhoneInputComponent() {
         </Form.Item>
         <Form.Item
           dependencies={["country_code"]}
-          name={"phone_number"}
+          name={"phone"}
           noStyle
           rules={[
             {
@@ -63,15 +63,28 @@ export default function PhoneInputComponent() {
 
             ({ getFieldValue }) => ({
               validator(_, value) {
-                if (!value || isPhoneValid("+" + getFieldValue("country_code") + value)) {
+                if (
+                  !value ||
+                  isPhoneValid("+" + getFieldValue("country_code") + value)
+                ) {
                   return Promise.resolve();
                 }
-                return Promise.reject(new Error(locale === "en" ? "Invalid phone number" : "رقم هاتف غير صحيح"));
+                return Promise.reject(
+                  new Error(
+                    locale === "en"
+                      ? "Invalid phone number"
+                      : "رقم هاتف غير صحيح"
+                  )
+                );
               },
             }),
           ]}
         >
-          <Input size="large" className="w-[calc(100%_-_100px)]" />
+          <Input
+            type="number"
+            size="large"
+            className="w-[calc(100%_-_100px)]"
+          />
         </Form.Item>
       </Space.Compact>
     </Form.Item>
