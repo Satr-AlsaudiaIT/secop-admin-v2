@@ -10,7 +10,6 @@ interface ChangeStatusModalProps {
   onClose: () => void;
   selectedUser: any;
   idToken: string;
-  statusList: Record<number, React.ReactNode>;
   onSuccess?: () => void;
 }
 
@@ -19,7 +18,18 @@ interface StatusMutationVariables {
   status: number;
 }
 
-const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ isOpen, onClose, selectedUser, idToken, statusList, onSuccess }) => {
+const statusList = {
+  1: <FormattedMessage id="accept-joining-request" />,
+  2: <FormattedMessage id="reject-joining-request" />,
+};
+
+const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({
+  isOpen,
+  onClose,
+  selectedUser,
+  idToken,
+  onSuccess,
+}) => {
   const [form] = Form.useForm();
 
   const updateStatusMutation = useMutation({
@@ -37,13 +47,19 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ isOpen, onClose, 
       return response.data;
     },
     onSuccess: (data) => {
-      toast.success(data.message || <FormattedMessage id="status_updated_successfully" />);
+      toast.success(
+        data.message || <FormattedMessage id="status_updated_successfully" />
+      );
       form.resetFields();
       onSuccess?.();
       onClose();
     },
     onError: (error: any) => {
-      toast.error(error.response?.data?.message || <FormattedMessage id="failed_to_update_status" />);
+      toast.error(
+        error.response?.data?.message || (
+          <FormattedMessage id="failed_to_update_status" />
+        )
+      );
     },
   });
 
@@ -66,10 +82,18 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ isOpen, onClose, 
       footer={null}
     >
       <Form form={form} onFinish={handleStatusChange} layout="vertical">
-        <Form.Item name="status" label={<FormattedMessage id="status" />} rules={[{ required: true, message: <FormattedMessage id="status" /> }]}>
-          <Select>
+        <Form.Item
+          name="status"
+          label={<FormattedMessage id="status" />}
+          rules={[
+            { required: true, message: <FormattedMessage id="status" /> },
+          ]}
+        >
+          <Select
+            placeholder={<FormattedMessage id="status"></FormattedMessage>}
+          >
             {Object.entries(statusList)
-              .filter(([key]) => Number(key) !== 0)
+              // .filter(([key]) => Number(key) !== 0 && Number(key) !== 3)
               .map(([key, value]) => (
                 <Select.Option key={key} value={Number(key)}>
                   {value}
@@ -78,7 +102,11 @@ const ChangeStatusModal: React.FC<ChangeStatusModalProps> = ({ isOpen, onClose, 
           </Select>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit" loading={updateStatusMutation.isPending}>
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={updateStatusMutation.isPending}
+          >
             <FormattedMessage id="global.submit" />
           </Button>
         </Form.Item>

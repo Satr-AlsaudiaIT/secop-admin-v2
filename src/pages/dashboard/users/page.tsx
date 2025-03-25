@@ -60,7 +60,7 @@ const Index: React.FC = () => {
 
   const addTag = (status) => {
     return status == "0" ? (
-      <Tag color="orange"> {statusList[status]}</Tag>
+      <Tag color="cyan"> {statusList[status]}</Tag>
     ) : status == "1" ? (
       <Tag color="success"> {statusList[status]}</Tag>
     ) : status == "2" ? (
@@ -95,7 +95,6 @@ const Index: React.FC = () => {
         onClose={handleCloseModal}
         selectedUser={selectedUser}
         idToken={idToken}
-        statusList={statusList}
         onSuccess={() => setRefresher((old) => !old)}
       />
 

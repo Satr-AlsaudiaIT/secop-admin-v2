@@ -452,5 +452,7 @@
   "resend_sms": "إعادة إرسال الرسائل القصيرة",
   "status_updated_successfully": "تم تحديث الحالة الناجحة",
   "photo_of_employees_id_card": "صورة بطاقة هوية للموظف",
-  "please-press-enter-after-line": "من فضلك اضغط على زر Enter في نهاية كل سطر للفصل بين التنسيقات."
+  "please-press-enter-after-line": "من فضلك اضغط على زر Enter في نهاية كل سطر للفصل بين التنسيقات.",
+  "accept-joining-request": "الموافقة علي طلب الانضمام",
+  "reject-joining-request": "رفض طلب الانضمام"
 }

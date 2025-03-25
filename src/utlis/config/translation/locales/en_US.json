@@ -451,5 +451,7 @@
   "failed_to_update_status": "Failed to update status",
   "status_updated_successfully": "Status updated successfull",
   "photo_of_employees_id_card": "Photo of employee id card",
-  "please-press-enter-after-line": "Please press Enter at the end of each line to separate formatting."
+  "please-press-enter-after-line": "Please press Enter at the end of each line to separate formatting.",
+  "accept-joining-request": "Accept the joining request",
+  "reject-joining-request": "Reject the joining request"
 }
