@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import MainTable from "containers/mainIndexTable/MainTable";
 import { generateCols } from "containers/mainIndexTable/cols";
 import SearchFilter from "containers/mainIndexTable/searchFilter";
-import { EditOutlined, EyeOutlined, DeleteOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import {
+  EditOutlined,
+  EyeOutlined,
+  DeleteOutlined,
+  QuestionCircleOutlined,
+} from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { Button, Image, Popconfirm, Tag, Tooltip } from "antd";
@@ -60,13 +65,15 @@ const Index: React.FC = () => {
 
   const addTag = (status) => {
     return status == "0" ? (
-      <Tag color="cyan"> {statusList[status]}</Tag>
+      <Tag className="animate-pulse" color="cyan">
+        {statusList[status]}
+      </Tag>
     ) : status == "1" ? (
       <Tag color="success"> {statusList[status]}</Tag>
     ) : status == "2" ? (
       <Tag color="error"> {statusList[status]}</Tag>
     ) : status == "3" ? (
-      <Tag color="gold"> {statusList[status]}</Tag>
+      <Tag color="gold">{statusList[status]}</Tag>
     ) : (
       statusList[status]
     );
@@ -74,7 +81,7 @@ const Index: React.FC = () => {
 
   return (
     <>
-      <div className="flex justify-between mb-5">
+      <div className="flex justify-between mb-4">
         <Button type="primary" onClick={() => navigate("/dashboard/users/add")}>
           <FormattedMessage id="add" />{" "}
         </Button>
@@ -83,7 +90,7 @@ const Index: React.FC = () => {
           type="primary"
           onClick={() => setFilter((oldValue) => !oldValue)}
         >
-          <FormattedMessage id="filter" />{" "}
+          <FormattedMessage id="filter" />
           <FaFilter className="mx-1"></FaFilter>
         </Button>
       </div>

@@ -437,6 +437,7 @@
   "start_date": "تاريخ البدء",
   "is_open_budget": "هي الميزانية المفتوحة",
   "contact_type": "نوع التواصل",
+  "message": "الرسالة",
   "message-2": "رسالة",
   "projects": "المشاريع",
   "contact-types": "أنواع الاتصال",
@@ -454,5 +455,6 @@
   "photo_of_employees_id_card": "صورة بطاقة هوية للموظف",
   "please-press-enter-after-line": "من فضلك اضغط على زر Enter في نهاية كل سطر للفصل بين التنسيقات.",
   "accept-joining-request": "الموافقة علي طلب الانضمام",
-  "reject-joining-request": "رفض طلب الانضمام"
+  "reject-joining-request": "رفض طلب الانضمام",
+  "read-more": "قراءة المزيد "
 }

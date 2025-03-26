@@ -3,8 +3,21 @@ import { FormattedMessage } from "react-intl";
 import { AiOutlineAudit } from "react-icons/ai";
 import { RiShipLine, RiRoadMapLine, RiUserSettingsFill, RiSettings2Fill } from "react-icons/ri";
 import { TbBuildingEstate } from "react-icons/tb";
-import { FaBoxOpen, FaCodeBranch, FaListUl, FaUser } from "react-icons/fa6";
-import { MdAssignmentAdd, MdCollectionsBookmark, MdContactPage, MdMeetingRoom, MdPolicy, MdWork } from "react-icons/md";
+import {
+  FaBoxOpen,
+  FaCodeBranch,
+  FaFileCircleQuestion,
+  FaListUl,
+  FaUser,
+} from "react-icons/fa6";
+import {
+  MdAssignmentAdd,
+  MdCollectionsBookmark,
+  MdContactPage,
+  MdMeetingRoom,
+  MdPolicy,
+  MdWork,
+} from "react-icons/md";
 import { RiAuctionFill } from "react-icons/ri";
 import { PiProjectorScreenChartFill, PiSlideshowFill } from "react-icons/pi";
 
@@ -17,7 +30,14 @@ import {
   MdProductionQuantityLimits,
 } from "react-icons/md";
 import { getPermissions } from "utlis/library/helpers/permissions";
-import { FaFileImport, FaQuestion, FaQuestionCircle, FaShieldAlt, FaCog, FaUsers } from "react-icons/fa";
+import {
+  FaFileImport,
+  FaQuestion,
+  FaQuestionCircle,
+  FaShieldAlt,
+  FaCog,
+  FaUsers,
+} from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { FaAllergies } from "react-icons/fa";
 import { GiButterflyKnife } from "react-icons/gi";
@@ -63,6 +83,13 @@ const getMenuItems: (profile) => MenuItem[] = (profile) => {
       icon: <FaQuestion className="!text-xl" />,
       disabled: false,
       hidden: false,
+    },
+    {
+      key: "contact-us",
+      to: "contact-us",
+      label: <FormattedMessage id="contact-us" />,
+      icon: <FaFileCircleQuestion className="!text-xl" />,
+      disabled: false,
     },
 
     // {
