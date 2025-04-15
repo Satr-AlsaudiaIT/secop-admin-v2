@@ -8,6 +8,7 @@ import {
   FaCodeBranch,
   FaFileCircleQuestion,
   FaListUl,
+  FaShop,
   FaUser,
 } from "react-icons/fa6";
 import {
@@ -87,8 +88,15 @@ const getMenuItems: (profile) => MenuItem[] = (profile) => {
     {
       key: "contact-us",
       to: "contact-us",
-      label: <FormattedMessage id="contact-us" />,
+      label: <FormattedMessage id="users-inquiries" />,
       icon: <FaFileCircleQuestion className="!text-xl" />,
+      disabled: false,
+    },
+    {
+      key: "markets",
+      to: "markets",
+      label: <FormattedMessage id="markets" />,
+      icon: <FaShop className="!text-xl" />,
       disabled: false,
     },
 

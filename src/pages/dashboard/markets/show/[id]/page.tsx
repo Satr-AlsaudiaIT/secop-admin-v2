@@ -1,18 +1,7 @@
 import { useEffect, useState } from "react";
 import axios, { URL } from "utlis/library/helpers/axios";
 import { toast } from "react-hot-toast";
-import {
-  Button,
-  Col,
-  Descriptions,
-  Divider,
-  Image,
-  Popconfirm,
-  Row,
-  Spin,
-  Tooltip,
-  Typography,
-} from "antd";
+import { Button, Col, Descriptions, Divider, Image, Popconfirm, Row, Spin, Table } from "antd";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
@@ -30,10 +19,7 @@ function Show() {
   const profile = useSelector(({ profile }) => profile.data);
 
   const { idToken } = useSelector((state: any) => state.Auth);
-  const { locale } = useSelector(
-    ({ LanguageSwitcher }: { LanguageSwitcher: ILanguageSwitcher }) =>
-      LanguageSwitcher.language
-  );
+  const { locale } = useSelector(({ LanguageSwitcher }: { LanguageSwitcher: ILanguageSwitcher }) => LanguageSwitcher.language);
   const { id } = useParams();
   const navigate = useNavigate();
   const [isDeleteing, setIsDeleteing] = useState(false);
@@ -90,67 +76,22 @@ function Show() {
         <Row>
           <Col span={24}>
             <Descriptions bordered title={<FormattedMessage id="show" />}>
-              <Descriptions.Item
-                span={3}
-                label={<FormattedMessage id="name" />}
-              >
-                {data.name ?? (
+              <Descriptions.Item span={3} label={<FormattedMessage id="name_en" />}>
+                {data.name_en ?? (
                   <div className="text-[#ccc]">
                     <FormattedMessage id="noData" />
                   </div>
                 )}
               </Descriptions.Item>
-              <Descriptions.Item
-                span={3}
-                label={<FormattedMessage id="email" />}
-              >
-                {data.email ? (
-                  <Typography.Text
-                    className="cursor-pointer hover:underline"
-                    onClick={() =>
-                      (window.location.href = `mailto:${data.email}`)
-                    }
-                    copyable
-                  >
-                    <Tooltip title="Send E-Mail">{data.email}</Tooltip>
-                  </Typography.Text>
-                ) : (
-                  <div className="text-[#ccc]">
-                    <FormattedMessage id="noData" />
-                  </div>
-                )}
-              </Descriptions.Item>
-
-              <Descriptions.Item
-                span={3}
-                label={<FormattedMessage id="phone" />}
-              >
-                {data.phone ? (
-                  <Typography.Text
-                    className="cursor-pointer hover:underline"
-                    onClick={() => window.open(`https://wa.me/+${data.phone}`)}
-                    copyable
-                  >
-                    <Tooltip title="Message on whatsapp">{data.phone}</Tooltip>
-                  </Typography.Text>
-                ) : (
-                  <div className="text-[#ccc]">
-                    <FormattedMessage id="noData" />
-                  </div>
-                )}
-              </Descriptions.Item>
-
-              <Descriptions.Item
-                span={3}
-                label={<FormattedMessage id="message" />}
-              >
-                {data.message ?? (
+              <Descriptions.Item span={3} label={<FormattedMessage id="name_ar" />}>
+                {data.name_ar ?? (
                   <div className="text-[#ccc]">
                     <FormattedMessage id="noData" />
                   </div>
                 )}
               </Descriptions.Item>
             </Descriptions>
+
             <div className="flex gap-4 flex-wrap mt-8">
               <Button
                 onClick={() => navigate(-1)}
@@ -159,20 +100,14 @@ function Show() {
               >
                 <FormattedMessage id="global.back" />
               </Button>
-              {id &&
-              getPermissions(config.delete.url, config.delete.type, profile) ? (
+              {id && getPermissions(config.delete.url, config.delete.type, profile) ? (
                 <Popconfirm
                   title={<FormattedMessage id="delete.deleteItem" />}
                   description={<FormattedMessage id="delete.areYouSure" />}
                   onConfirm={() => deleteItem()}
                   icon={<QuestionCircleOutlined style={{ color: "red" }} />}
                 >
-                  <Button
-                    loading={isDeleteing}
-                    icon={<DeleteOutlined className="mx-1" />}
-                    type="primary"
-                    danger
-                  >
+                  <Button loading={isDeleteing} icon={<DeleteOutlined className="mx-1" />} type="primary" danger>
                     <FormattedMessage id="delete" />
                   </Button>
                 </Popconfirm>
@@ -187,8 +122,6 @@ function Show() {
   );
 }
 
-// export default middleware(Show, [
-//   PermissionGuard(config.findOne.url, config.findOne.type),
-// ]);
+// export default middleware(Show, [PermissionGuard(config.findOne.url, config.findOne.type)]);
 
 export default Show;

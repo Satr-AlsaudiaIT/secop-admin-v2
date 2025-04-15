@@ -10,7 +10,7 @@ import {
 } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { Button, Image, Popconfirm, Switch, Tooltip, Typography } from "antd";
+import { Button, Image, Popconfirm, Switch } from "antd";
 import { useSelector } from "react-redux";
 import axios, { URL } from "utlis/library/helpers/axios";
 import { FormattedMessage } from "react-intl";
@@ -20,30 +20,30 @@ import { getPermissions } from "utlis/library/helpers/permissions";
 import dayjs from "dayjs";
 import { useMutation } from "@tanstack/react-query";
 import { FaFilter } from "react-icons/fa6";
-
+import Search from "../../../components/markets/Search";
+import { FaSearch } from "react-icons/fa";
 export const config = {
-  add: { url: "contact-us", method: "post", type: "Add" },
-  edit: { url: "contact-us", method: "put", type: "Update" },
-  delete: { url: "contact-us", method: "delete", type: "Delete" },
+  add: { url: "markets", method: "post", type: "create" },
+  edit: { url: "markets", method: "post", type: "update" },
+  delete: { url: "markets", method: "delete", type: "delete" },
   findOne: {
-    url: "contact-us",
+    url: "markets",
     method: "get",
-    type: "Get",
+    type: "show",
   },
 };
 const Index: React.FC = () => {
   const navigate = useNavigate();
   const profile = useSelector(({ profile }) => profile.data);
+  const [showSearch, setShowSearch] = useState(false);
+  const [URL, setURL] = useState("markets");
 
   const { idToken } = useSelector((state: any) => state.Auth);
-  const [refresher, setRefresher] = useState(false);
   const { locale } = useSelector(
     ({ LanguageSwitcher }: { LanguageSwitcher: ILanguageSwitcher }) =>
       LanguageSwitcher.language
   );
-
-  const [filter, setFilter] = useState(false); // For filter
-  const [url, setUrl] = useState("contact-us"); // For url
+  const [refresher, setRefresher] = useState(false);
 
   const deleteItem = (id) => {
     toast.promise(
@@ -69,59 +69,24 @@ const Index: React.FC = () => {
 
   return (
     <>
-      {/* <Button type="primary" onClick={() => setFilter((oldValue) => !oldValue)}>
-        <FormattedMessage id="filter" /> <FaFilter className="mx-1"></FaFilter>
-      </Button> */}
-      {/* {filter && <Filter setUrl={setUrl}></Filter>} */}
+      <div className="flex justify-between mb-4">
+        <Button
+          type="primary"
+          onClick={() => setShowSearch((oldValue) => !oldValue)}
+        >
+          <FormattedMessage id="search" />
+          <FaSearch className="mx-1"></FaSearch>
+        </Button>
+      </div>
+
+      {showSearch && <Search setUrl={setURL}></Search>}
       <MainTable
         config={config}
-        url={url}
+        url={URL}
         refresher={refresher}
-        addURL=""
         cols={generateCols([
-          "name",
-          {
-            title: "email",
-            content: (_, record) => (
-              <Typography.Text
-                className="cursor-pointer hover:underline"
-                onClick={() =>
-                  (window.location.href = `mailto:${record.email}`)
-                }
-                copyable
-              >
-                <Tooltip title="Send E-Mail">{record.email}</Tooltip>
-              </Typography.Text>
-            ),
-          },
-          {
-            title: "phone",
-            content: (_, record) => (
-              <Typography.Text
-                className="cursor-pointer hover:underline"
-                onClick={() => window.open(`https://wa.me/+${record.phone}`)}
-                copyable
-              >
-                <Tooltip title="Message on whatsapp">{record.phone}</Tooltip>
-              </Typography.Text>
-            ),
-          },
-          {
-            title: "message",
-            content: (_, record) => (
-              <Typography.Paragraph
-                ellipsis={{
-                  rows: 1,
-                  expandable: true,
-                  symbol: <FormattedMessage id="read-more" />,
-                  onExpand: () => navigate(`show/${record.id}`),
-                }}
-              >
-                {" "}
-                {record.message}
-              </Typography.Paragraph>
-            ),
-          },
+          "name_en",
+          "name_ar",
           ...(function () {
             const show =
               getPermissions(config.edit.url, config.edit.type, profile) ||
@@ -138,6 +103,19 @@ const Index: React.FC = () => {
                     title: "actions",
                     content: (_, record) => (
                       <div className="flex gap-2">
+                        {getPermissions(
+                          config.edit.url,
+                          config.edit.type,
+                          profile
+                        ) || true ? (
+                          <Button
+                            onClick={() => navigate(`edit/${record.id}`)}
+                            icon={<EditOutlined key="edit" />}
+                          />
+                        ) : (
+                          ""
+                        )}
+
                         {getPermissions(
                           config.findOne.url,
                           config.findOne.type,
@@ -162,7 +140,6 @@ const Index: React.FC = () => {
   );
 };
 
-// export default middleware(Index, [
-//   PermissionGuard(config.findOne.url, config.findOne.type),
-// ]);
+// export default middleware(Index, [PermissionGuard("sectors", "read")]);
+
 export default Index;
