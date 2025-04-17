@@ -1,7 +1,22 @@
 import { useEffect, useState } from "react";
 import axios, { URL } from "utlis/library/helpers/axios";
 import { toast } from "react-hot-toast";
-import { Button, Col, DatePicker, Form, Input, Popconfirm, Progress, Row, Select, Spin, TimePicker, Upload } from "antd";
+import {
+  Button,
+  Checkbox,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Popconfirm,
+  Progress,
+  Row,
+  Select,
+  Spin,
+  Switch,
+  TimePicker,
+  Upload,
+} from "antd";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -53,12 +68,12 @@ function Edit() {
   const queryClient = useQueryClient();
 
   const handleSubmit = (values) => {
-    values.about_us_ar = aboutUsAr
-    values.about_us_en = aboutUsEn
-    values.privacy_policy_ar = privacyPolicyAr
-    values.privacy_policy_en = privacyPolicyEn
-    values.terms_ar = termsAr
-    values.terms_en = termsEn
+    values.about_us_ar = aboutUsAr;
+    values.about_us_en = aboutUsEn;
+    values.privacy_policy_ar = privacyPolicyAr;
+    values.privacy_policy_en = privacyPolicyEn;
+    values.terms_ar = termsAr;
+    values.terms_en = termsEn;
     values._method = "put";
     setIsSubmiting(true);
     toast.promise(
@@ -107,10 +122,16 @@ function Edit() {
   });
 
   useEffect(() => {
-    if (isSuccess) {
-      form.setFieldsValue(show.data?.data);
+    if (isSuccess && show?.data?.data) {
+      const values = {
+        ...show.data.data,
+        accept_product_automation:
+          show.data.data.accept_product_automation === "1",
+      };
+      form.setFieldsValue(values);
     }
-  }, [isPending]);
+  }, [isSuccess, show?.data?.data]);
+
   return (
     <>
       <Spin spinning={isFetching}>
@@ -122,6 +143,19 @@ function Edit() {
               layout="vertical"
               className="login-form"
             >
+              <Form.Item
+                label={<FormattedMessage id="auto-accept-products" />}
+                name="accept_product_automation"
+                valuePropName="checked"
+                tooltip={{
+                  title: (
+                    <FormattedMessage id="please-click-save-to-save-your-changes" />
+                  ),
+                  icon: <InfoCircleOutlined />,
+                }}
+              >
+                <Switch />
+              </Form.Item>
               <Form.Item
                 label={<FormattedMessage id="email" />}
                 name="email"

@@ -455,5 +455,9 @@
   "accept-joining-request": "Accept the joining request",
   "reject-joining-request": "Reject the joining request",
   "read-more": "Read more",
-  "users-inquiries": "Users inquiries"
+  "users-inquiries": "Users inquiries",
+  "send-mail": "Send an e-mail",
+  "send-whatsapp-message": "Send a WhatsApp message",
+  "auto-accept-products": "Automatically accept products posted by members",
+  "please-click-save-to-save-your-changes": "To save your changes, please click Save at the bottom of the page."
 }

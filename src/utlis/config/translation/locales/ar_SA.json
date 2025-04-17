@@ -457,5 +457,9 @@
   "accept-joining-request": "الموافقة علي طلب الانضمام",
   "reject-joining-request": "رفض طلب الانضمام",
   "read-more": "قراءة المزيد ",
-  "users-inquiries": "استفسارات المستخدمين"
+  "users-inquiries": "استفسارات المستخدمين",
+  "send-mail": "ارسال بريد الكتروني",
+  "send-whatsapp-message": "ارسال رسالة واتساب",
+  "auto-accept-products": "قبول المنتجات المنشورة من قبل الاعضاءاتوماتيكياً",
+  "please-click-save-to-save-your-changes": "لحفظ التغيرات التي قمت بها من فضلك اضغط حفظ في نهاية الصفحة"
 }

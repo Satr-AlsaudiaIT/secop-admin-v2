@@ -112,7 +112,9 @@ function Show() {
                     }
                     copyable
                   >
-                    <Tooltip title="Send E-Mail">{data.email}</Tooltip>
+                    <Tooltip title={<FormattedMessage id="send-mail" />}>
+                      {data.email}
+                    </Tooltip>
                   </Typography.Text>
                 ) : (
                   <div className="text-[#ccc]">
@@ -131,7 +133,11 @@ function Show() {
                     onClick={() => window.open(`https://wa.me/+${data.phone}`)}
                     copyable
                   >
-                    <Tooltip title="Message on whatsapp">{data.phone}</Tooltip>
+                    <Tooltip
+                      title={<FormattedMessage id="send-whatsapp-message" />}
+                    >
+                      {data.phone}
+                    </Tooltip>
                   </Typography.Text>
                 ) : (
                   <div className="text-[#ccc]">

@@ -90,7 +90,9 @@ const Index: React.FC = () => {
                 }
                 copyable
               >
-                <Tooltip title="Send E-Mail">{record.email}</Tooltip>
+                <Tooltip title={<FormattedMessage id="send-mail" />}>
+                  {record.email}
+                </Tooltip>
               </Typography.Text>
             ),
           },
@@ -102,7 +104,11 @@ const Index: React.FC = () => {
                 onClick={() => window.open(`https://wa.me/+${record.phone}`)}
                 copyable
               >
-                <Tooltip title="Message on whatsapp">{record.phone}</Tooltip>
+                <Tooltip
+                  title={<FormattedMessage id="send-whatsapp-message" />}
+                >
+                  {record.phone}
+                </Tooltip>
               </Typography.Text>
             ),
           },
